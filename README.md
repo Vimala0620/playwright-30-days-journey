@@ -26,3 +26,39 @@ Wrote a basic test to:
 - Navigate to Rahul Shetty Academy login page
 - Run test using:
 npx playwright test --headed
+
+---
+
+## Day 2 – CSS Selectors & Login Automation
+
+### ✅ What I Learned
+
+- What CSS selectors are
+- How to construct CSS locators
+- How to inspect elements using browser DevTools
+- How to enter text into input fields
+- How to click a button using Playwright
+- Practiced some interview-based questions
+- Created `day-02/interviewquestions.md`
+
+---
+
+### ✅ CSS Selector Basics (Quick Notes)
+
+#### 1. Select by ID
+```css
+#username
+2. Select by Class
+.form-control
+3. Select by Tag
+input
+4. Tag + ID
+input#username
+5. Tag + Class
+input.form-control
+6. Attribute Selector
+input[type="text"]
+7. Parent > Child
+div > input
+8. Contains text (Playwright specific)
+page.locator("text=Sign In")
