@@ -62,3 +62,28 @@ input[type="text"]
 div > input
 8. Contains text (Playwright specific)
 page.locator("text=Sign In")
+
+---
+
+## Day 3 – Extracting Text & Assertions (Part 1)
+
+### ✅ What I Learned
+
+- How to capture text from the browser
+- How to use `expect()` for assertions
+- How to validate error messages
+- How to handle dynamic messages that appear temporarily
+- Understood how elements can appear/disappear based on UI state
+
+---
+
+### ✅ Scenario Practiced
+
+When entering wrong username/password:
+- An error message appears
+- It stays for a few seconds
+- Then disappears
+
+The CSS condition used:
+```css
+[style*="block"]
