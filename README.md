@@ -87,3 +87,45 @@ When entering wrong username/password:
 The CSS condition used:
 ```css
 [style*="block"]
+**## Day 3 – Part2 Client Portal Login & Multiple Elements (Part 3)
+**
+### ✅ Exercise Completed
+
+Logged into:
+https://rahulshettyacademy.com/client/#/auth/login
+
+Goal:
+- Login successfully
+- Capture list of products
+- Print the first product name
+
+---
+
+### ✅ Key Learning
+
+- How to work with locators returning multiple elements
+- How Playwright waits when multiple matches exist
+- How to use:
+  - `.count()`
+  - `.first()`
+  - `.nth(index)`
+- Understood that locators are lazy (not resolved immediately)
+
+---
+
+### ✅ Practice Code
+
+```js
+    await page.goto('https://rahulshettyacademy.com/client/#/auth/login');
+    const title = await page.title();
+    const Email = "qauser1@example.com";
+    const Password = "Test@123";
+    const unameLoc = page.locator('[id="userEmail"]');
+    const pwdLoc = page.locator('[id="userPassword"]');
+    const signInBtnLoc = page.locator('[id="login"]');
+    await unameLoc.fill(Email);
+    await pwdLoc.fill(Password);
+    await signInBtnLoc.click();
+    const chk = await page.locator('div>h5>b').first().textContent();    
+    console.log(chk);
+    expect(chk).toContain("ADIDAS ORIGINAL");
