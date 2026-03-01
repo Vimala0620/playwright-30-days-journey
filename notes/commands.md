@@ -94,3 +94,36 @@ Select element based on style attribute
 page.locator('[style*="block"]');
 
 
+---
+Day2
+----------
+## 🔹 CSS Locator Examples
+
+### Select by ID
+page.locator('#username')
+Select by Class
+page.locator('.form-control')
+Select by Attribute
+page.locator('input[type="text"]')
+Select by Text
+page.locator('text=Sign In')
+Fill Input Field
+await page.locator('#username').fill('myusername');
+Click Button
+await page.locator('#signInBtn').click();
+Get Text
+const text = await page.locator('.error').textContent();
+
+---
+
+# 🔥 Important Upgrade Suggestion (Professional Tip)
+
+Instead of:
+
+```js
+page.locator('#username')
+
+Better:
+
+page.getByLabel('Username')
+page.getByRole('button', { name: 'Sign In' })
