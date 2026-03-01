@@ -64,6 +64,34 @@ Test files must be inside tests/ folder
 Test file name must end with .spec.js or .test.js
 
 Playwright automatically provides the page fixture in tests
+---
+Day3:
+-------------------
+## 🔹 Extracting Text & Assertions
+
+### Get text from element
+```js
+const text = await page.locator('.error').textContent();
+console.log(text);
+Get inner text (visible text only)
+const text = await page.locator('.error').innerText();
+Assert element is visible
+await expect(page.locator('.error')).toBeVisible();
+Assert element contains text
+await expect(page.locator('.error')).toContainText('Incorrect');
+Assert exact text
+await expect(page.locator('.error')).toHaveText('Incorrect username/password.');
+Assert page title
+await expect(page).toHaveTitle(/Login/);
+Assert URL
+await expect(page).toHaveURL(/dashboard/);
+🔹 Handling Dynamic Elements
+Wait for element to appear
+await page.locator('.error').waitFor();
+Wait for element to be visible
+await expect(page.locator('.error')).toBeVisible();
+Select element based on style attribute
+page.locator('[style*="block"]');
 
 
 ---
