@@ -129,3 +129,168 @@ Goal:
     const chk = await page.locator('div>h5>b').first().textContent();    
     console.log(chk);
     expect(chk).toContain("ADIDAS ORIGINAL");
+### 🛠 Learned About Debug Mode (Very Helpful)
+
+Discovered Playwright Debug Mode which helped me:
+
+- Slow down execution
+- Inspect locators visually
+- Step through test execution
+- Understand what is happening behind the scenes
+
+Command used:
+
+```bash
+npx playwright test --debug
+What Happens Normally (Without --debug)
+
+When you run:
+
+npx playwright test
+
+Playwright:
+
+Launches browser
+
+Runs test very fast
+
+Closes browser immediately after test finishes
+
+Ends process
+
+Everything is optimized for speed.
+
+No pauses.
+No stepping.
+No manual inspection.
+
+✅ What Happens With --debug
+
+When you run:
+
+npx playwright test --debug
+
+Playwright switches to debug mode.
+
+Internally, it does several things differently:
+
+🔹 1️⃣ Headed Mode Automatically Enabled
+
+Even if your config says headless true:
+
+Debug mode forces:
+
+headless: false
+
+So you can see the browser.
+
+🔹 2️⃣ Execution Is Slowed Down
+
+It enables:
+
+slowMo
+
+So actions happen step-by-step.
+
+Not instantly.
+
+🔹 3️⃣ Playwright Inspector Is Activated
+
+This is the biggest change.
+
+Playwright launches:
+
+🛠 Inspector Tool
+
+The inspector:
+
+Pauses before each action
+
+Shows current step
+
+Lets you step forward manually
+
+Shows locator highlight
+
+Lets you inspect DOM
+
+That’s why test does NOT close immediately.
+
+It is waiting for YOU.
+
+🔹 4️⃣ Auto-Wait + Breakpoint Behavior
+
+When you use:
+
+await page.pause();
+
+Playwright:
+
+Injects a breakpoint
+
+Suspends test execution
+
+Keeps browser open
+
+Waits for resume
+
+So test is intentionally frozen.
+
+🔥 Why Test Does Not Close
+
+Because debug mode:
+
+Prevents automatic process exit
+
+Keeps event loop alive
+
+Waits for user interaction in inspector
+
+Does not finalize test runner immediately
+
+In simple words:
+
+Normal mode → Run & Exit
+Debug mode → Run & Wait for Human
+
+🎯 Deep Understanding
+
+Playwright Test Runner normally controls lifecycle:
+
+Start → Execute → Cleanup → Close → Exit
+
+Debug mode modifies lifecycle to:
+
+Start → Execute Step-by-Step → Wait for Inspector → Cleanup after manual resume
+
+That’s why browser stays open.
+
+💡 Why This Is Powerful
+
+Debug mode helps you:
+
+See auto-wait in action
+
+Observe dynamic element appearance
+
+Understand locator resolution
+
+Fix flaky tests
+
+Build confidence
+
+Professionals use this daily.
+
+🔎 One More Important Difference
+
+If you run:
+
+npx playwright test --headed
+
+Browser is visible BUT:
+
+It still closes immediately after test.
+
+Because debug mode ≠ headed mode.
+
+Debug mode = headed + inspector + pause control.
