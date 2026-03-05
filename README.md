@@ -294,3 +294,122 @@ It still closes immediately after test.
 Because debug mode ≠ headed mode.
 
 Debug mode = headed + inspector + pause control.
+Day 4 – Handling UI Controls (Dropdowns, Radio Buttons, Combobox)
+✅ Topics Learned
+
+Working with Select Dropdowns
+
+Handling Custom Combobox (React Select)
+
+Selecting Radio Buttons
+
+Understanding when to use selectOption() vs click()
+
+Writing utility methods for reusable dropdown handling
+
+Select Dropdown Example
+
+Used for HTML <select> elements.
+
+const dropdown = page.locator("select.form-control");
+await dropdown.selectOption("Teacher");
+
+Select by value:
+
+await dropdown.selectOption({ value: "consult" });
+
+Select by label:
+
+await dropdown.selectOption({ label: "Teacher" });
+Radio Button Example
+await page.locator(".radiotextsty").nth(1).click();
+await expect(page.locator(".radiotextsty").nth(1)).toBeChecked();
+Combobox (React Select) Example
+
+Custom dropdowns are not real <select> elements, so we must:
+
+Click the dropdown
+
+Click the option
+
+Example:
+
+const combo = page.locator("#react-select-2-input");
+
+await combo.click();
+
+const option = page.getByText("A Root Option", { exact: true });
+
+await expect(option).toBeVisible();
+
+await option.click();
+Assertion After Selection
+
+Verify selected value:
+
+await expect(page.locator(".css-1dimb5e-singleValue"))
+  .toHaveText("A Root Option");
+Utility Class Practice
+
+Created a reusable utility class for dropdown handling.
+
+Example utility method:
+
+class Dropdown {
+
+  constructor(page) {
+    this.page = page;
+  }
+
+  async comboBox(optionText, comboLocator) {
+
+    await comboLocator.click();
+
+    const option = this.page.getByText(optionText, { exact: true });
+
+    await expect(option).toBeVisible();
+
+    await option.click();
+  }
+}
+
+Usage in test:
+
+await dropdown.comboBox("A Root Option", combo);
+Waiting Strategies Learned
+Avoid Hard Waits
+await page.waitForTimeout(5000); ❌
+
+Hard waits make tests slow and flaky.
+
+Prefer Web-First Assertions
+await expect(locator).toBeVisible();
+
+Playwright automatically waits until the condition is satisfied.
+
+Locator Wait
+
+Used when we only want the element to appear:
+
+await locator.waitFor();
+Network Idle
+await page.waitForLoadState('networkidle');
+
+Learned that this is discouraged in many cases because modern apps constantly make background requests.
+
+Better approach:
+
+await expect(locator).toBeVisible();
+Key Playwright Concepts Learned So Far
+
+Playwright auto-waits for elements
+
+Locators are lazy evaluated
+
+Prefer assertions over manual waits
+
+Avoid hard waits
+
+Use debug mode for troubleshooting
+
+Use utility classes to reuse code
